@@ -1,8 +1,5 @@
 FROM justadudewhohacks/opencv-nodejs:node9-opencv3.4.1-contrib
 
-LABEL maintainer="Michael Richardson <rainabba@gmail.com>"
-LABEL repository="https://github.com/rainabba/gm-opencv-nodejs.git"
-
 USER root
 ENV DEBIAN_FRONTEND=noninteractive \
 	NODE_PATH=/usr/lib/node_modules \
