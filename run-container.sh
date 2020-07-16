@@ -1,11 +1,11 @@
 #!/bin/bash
 set -x #echo on;
-CODE_VERSION_PREVIOUS=$(cat package.json | grep versionPrevious | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]')-dev;
-CODE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]')-dev;
+CODE_VERSION_PREVIOUS=$(cat package.json | grep versionPrevious | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]');
+CODE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]');
 PACKAGE_NAME=$(cat package.json | grep name | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') 
 CONTAINER_NAME=$PACKAGE_NAME-$CODE_VERSION 
 IMAGE_BUILDER=$(cat package.json | grep authorHandle | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') 
-IMAGE_NAME=$IMAGE_BUILDER/$PACKAGE_NAME:latest
+IMAGE_NAME=$IMAGE_BUILDER/$PACKAGE_NAME:$CODE_VERSION
 if [ "`docker inspect -f '{{.State.Running}}' $PACKAGE_NAME-$CODE_VERSION`" = "true" ] ; then
 	docker stop $PACKAGE_NAME-$CODE_VERSION;
 fi
